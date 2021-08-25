@@ -38,6 +38,17 @@ app.post("/api/courses/", (request, response) => {
   response.send(course);
 });
 
+app.put("/api/courses/:id", (request, response) => {
+  const course = courses.find(
+    (course) => course.id === parseInt(request.params.id)
+  );
+
+  if (!course) response.status(404).send("Course not found.");
+
+  course.name = request.body.name;
+  response.send(course);
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
